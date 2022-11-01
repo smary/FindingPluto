@@ -20,7 +20,10 @@ struct AnimalsResponse: Decodable {
 
 struct Animal : Decodable {
     let name : String?
-    let type: String?
-    let description: String?
+//    let breeds: String? //TODO: Map "breeds"
+    let size: String?
+    let gender: String?
+    let status: String?
+    let distance: Int?
 }
 

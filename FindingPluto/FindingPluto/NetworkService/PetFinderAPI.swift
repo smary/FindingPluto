@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class PetFinderAPIConstants {
     
@@ -14,7 +15,7 @@ class PetFinderAPIConstants {
     static let client_secret = "IMauhBOrO6rHY2oaII2VwvZAjVbWlAeL2RcBCJYb"
     static let grant_type = "client_credentials"
     static let host = "api.petfinder.com"
-    static let accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJ2OFJqeVF0MUNQUXg1QXBJSkJ3ZVlZb3U2SzdmYlBQYWxFNnJlbThRemJrSjVCWUZUSiIsImp0aSI6IjBiYzAwZjg3NDM1N2YwNzY0ZWUxYjRiOWJiYTJmMGZlMzdlNzdmN2M2MzZlMzk3YWMyNWJhOTk0OTAyOTc5YmIzZTllZThjOTVhOGE4NTllIiwiaWF0IjoxNjY3Mjk4NDY2LCJuYmYiOjE2NjcyOTg0NjYsImV4cCI6MTY2NzMwMjA2Niwic3ViIjoiIiwic2NvcGVzIjpbXX0.MCREUIJwaec1zSkTiX40JWamp_ELqjLm8Pnvw05H4I8o8oQWZJgvcbh1yjWgUqvDVx7P___jcDkg0YU-6dCClLCIvsKs2GD5Jszg5Jukbi21HFRCNL-xeXyollkNcAtZhgKBsSF_kRrFsS2m1VoAdahdbMoZ_ncwG5NsJvHZpaWOr0DA71sN6NdJzbEDc8_wOvW_gj9uvfn94ORZZXDx8pB_EmYkh2-Q-6RhEVkv8PhpG6M0TtKPe5z_l22ev7uQBjeZP3Jikp3b4ebX6xDQDIP_DKTYED9P0fbeDyu-XUQHV1DfZzz02KS2rl1yzf8CCFh4qs-Y7Pea2HJe5OzZ5Q"
+    static let accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJ2OFJqeVF0MUNQUXg1QXBJSkJ3ZVlZb3U2SzdmYlBQYWxFNnJlbThRemJrSjVCWUZUSiIsImp0aSI6IjhiNTIyZDU5NzQwM2VmNDI3MzUyYWNhM2JlNjMyOTdlZTU1Y2U1MDA2YTYwZjljZmFkMGY2OTgwOTYxNWQwMzhhYWU2NTViZTc2NDI1NzhiIiwiaWF0IjoxNjY3MzEyMzQ5LCJuYmYiOjE2NjczMTIzNDksImV4cCI6MTY2NzMxNTk0OSwic3ViIjoiIiwic2NvcGVzIjpbXX0.Tokna2ovqrMKquHwOliLkZFgkzz2zZJXKnZ4Dya8RkYA3LA0JcTBi3--O5e5M1RcZ2FzniWhHXpKxNEhDwOipUfI2_P3Hf7a7SDdMSqhrg8lde2zDzxJcCrCKgqMwteQvbDeqjKIY_eyqDbPLWaAG1F1GolMvvC7hp4ulcbc7Hwfl8JNmo5J1YyZPkyJzijADaWItnV06_5GG80iKPEE0LGb7m6PmxNaaNoswrjl8METMYeJwH1L-8ZVYlk1e1P7C3W37D0tTfZLJmCoqC4cVYuPvX5c79kWRe82HgPmfBNfbjMFCzx6Y_269SMbGD14sACTPNtIvhXR52zJYWE97w"
     
     static let baseURL = "https://api.petfinder.com"
     
@@ -40,10 +41,10 @@ enum PetFinderAPIError: Error {
 
 class NetworkService {
 
-    func getAnimals() -> Observable<AnimalsResponse> {
+    func getAnimalsList() -> Observable<AnimalsResponse> {
         let getAnimalsURL = URL(string: PetFinderAPIConstants.baseURL + PetFinderAPIConstants.paths["animals"]!)!
-        //return executeRequest(url: getAnimalsURL, token: PetFinderAPIConstants.accessToken)
-        return fetchData(url: getAnimalsURL, token: PetFinderAPIConstants.accessToken)
+        //return fetchData(url: getAnimalsURL, token: PetFinderAPIConstants.accessToken)
+        return loadData(url: getAnimalsURL, token: PetFinderAPIConstants.accessToken)
     }
     
     func fetchData<T: Decodable>(url: URL, token: String) -> Observable<T> {
@@ -67,6 +68,21 @@ class NetworkService {
           task.cancel()
         }
       }
+    }
+    
+    
+    func loadData<T: Decodable>(url: URL, token: String) -> Observable<T> {
+        return Observable.just(url)
+            .flatMap { url -> Observable<Data> in
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+                request.addValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                return URLSession.shared.rx.data(request: request)
+            }
+            .map { data -> T in
+                return try JSONDecoder().decode(T.self, from: data)
+            }
     }
   
 //    static let shared = NetworkService()

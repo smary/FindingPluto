@@ -54,16 +54,76 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="xYb-Gc-bJr" id="QEG-Re-Spb"/>
-                            <outlet property="delegate" destination="xYb-Gc-bJr" id="4le-DB-KrZ"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ZTB-uc-4N8"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w3n-hc-vGl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1644.9275362318842" y="97.767857142857139"/>
+        </scene>
+        <!--Pet Info-->
+        <scene sceneID="boP-O3-BI0">
+            <objects>
+                <tableViewController title="Pet Info" id="Uho-W0-53W" customClass="AnimalDetailTableViewController" customModule="FindingPluto" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="X2d-qa-1Sn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="petDetailCell" rowHeight="100" id="RcM-Nw-CKK" customClass="PetDetailTableViewCell" customModule="FindingPluto" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RcM-Nw-CKK" id="nXq-Pr-0Ng">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Mq4-Ns-Gmo">
+                                            <rect key="frame" x="20" y="11" width="374" height="78"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6Z-UZ-xJh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJZ-bL-6zd">
+                                                    <rect key="frame" x="0.0" y="30" width="374" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaB-pi-sTw">
+                                                    <rect key="frame" x="0.0" y="57.5" width="374" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Mq4-Ns-Gmo" secondAttribute="bottom" id="3zA-HI-52c"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Mq4-Ns-Gmo" secondAttribute="trailing" id="DkT-0m-SSs"/>
+                                        <constraint firstItem="Mq4-Ns-Gmo" firstAttribute="top" secondItem="nXq-Pr-0Ng" secondAttribute="topMargin" id="G6m-us-m9W"/>
+                                        <constraint firstItem="Mq4-Ns-Gmo" firstAttribute="leading" secondItem="nXq-Pr-0Ng" secondAttribute="leadingMargin" id="veM-bh-mVP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="petGender" destination="lJZ-bL-6zd" id="q1P-mN-agj"/>
+                                    <outlet property="petName" destination="O6Z-UZ-xJh" id="Zo3-1d-q4I"/>
+                                    <outlet property="petSize" destination="iaB-pi-sTw" id="4cm-HX-IbA"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Uho-W0-53W" id="XUR-Lf-stS"/>
+                            <outlet property="delegate" destination="Uho-W0-53W" id="QgO-Mb-Xdz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7t7-Uf-c07" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2542" y="98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gMV-EI-TdJ">

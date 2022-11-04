@@ -32,7 +32,12 @@ class RequestsManager: RequestsManagerProtocol {
     func fetchData<T: Decodable>(request: RequestProtocol, token: String) -> Observable<T> {
       return Observable<T>.create { observer -> Disposable in
           
-          if let urlRequest = try? request.createURLRequest(authToken: token) {
+          guard let urlRequest = try? request.createURLRequest(authToken: token) else {
+              observer.onError(NSError(domain: "", code: -1, userInfo: nil))
+              return Disposables.create()
+          }
+          
+          
           let task = URLSession.shared.dataTask(with: urlRequest ) { (data, response, error) in
               guard let response = response as? HTTPURLResponse else {
                   print("Error: Invalid response to token request!")
@@ -56,10 +61,6 @@ class RequestsManager: RequestsManagerProtocol {
           task.resume()
           return Disposables.create {
               task.cancel()
-          }
-          } else {
-          
-          return Disposables.create()
           }
       }
     }

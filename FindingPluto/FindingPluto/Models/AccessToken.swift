@@ -1,8 +1,8 @@
 //
-//  Models.swift
+//  AccessToken.swift
 //  FindingPluto
 //
-//  Created by Mariana on 30.10.2022.
+//  Created by Mariana on 04.11.2022.
 //
 
 import Foundation
@@ -30,25 +30,3 @@ extension AccessToken {
         "\(tokenType) \(token)"
     }
 }
-
-
-struct AnimalsResponse: Decodable {
-    let animals : [Animal]?
-}
-
-struct Animal : Decodable {
-    let name : String?
-    let breeds: Breed
-    let size: String?
-    let gender: String?
-    let status: String?
-    let distance: Int?
-}
-
-struct Breed: Decodable {
-    let primary: String?
-    let secondary: String?
-    let mixed: Bool
-    let unknown: Bool
-}
-

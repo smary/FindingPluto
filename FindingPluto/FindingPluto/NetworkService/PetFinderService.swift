@@ -8,9 +8,14 @@
 import Foundation
 import RxSwift
 
-protocol AnimalsFetcher {
+protocol AnimalsServiceProtocol {
     func fetchAnimals() -> Observable<[Animal]>
 }
+
+protocol TokenServiceProtocol {
+    func fetchAccessToken() -> Observable<String>
+}
+
 
 class PetFinderService {
     
@@ -21,23 +26,27 @@ class PetFinderService {
     }
 }
 
-extension PetFinderService: AnimalsFetcher {
+extension PetFinderService: AnimalsServiceProtocol {
     
     func fetchAnimals() -> Observable<[Animal]> {
         
-        let animalsObservable: Observable <[Animal]> = getAccessToken()
+        let animalsObservable: Observable <[Animal]> = fetchAccessToken()
             .flatMap { token -> Observable<AnimalsResponse> in
                 return self.requestsManager.fetchData(request: AnimalsRequest.getAnimalsList, token: token)
             }
             .map { $0.animals ?? []}
         return animalsObservable
     }
+}
+
+extension PetFinderService: TokenServiceProtocol {
     
-    
-    func getAccessToken() -> Observable<String> {
+    func fetchAccessToken() -> Observable<String> {
         let accessTokenObservale: Observable<AccessToken>  = self.requestsManager.fetchData(request: AuthTokenRequest.auth, token: "")
         let token = accessTokenObservale
             .map {$0.bearerAccessToken }
         return token
     }
 }
+
+

@@ -33,7 +33,7 @@ class RequestsManager: RequestsManagerProtocol {
       return Observable<T>.create { observer -> Disposable in
           
           guard let urlRequest = try? request.createURLRequest(authToken: token) else {
-              observer.onError(NSError(domain: "", code: -1, userInfo: nil))
+              observer.onError(NetworkError.invalidRequest)
               return Disposables.create()
           }
           
@@ -49,6 +49,7 @@ class RequestsManager: RequestsManagerProtocol {
               }
               if response.statusCode == 401 {
                   //TODO: handle refreshToken
+                  observer.onError(NetworkError.unauthorized)
               }
               do {
                   let decodedResponse = try JSONDecoder().decode(T.self, from: data ?? Data())

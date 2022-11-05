@@ -81,6 +81,13 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="mp4-hO-QCj">
+                                <rect key="frame" x="197" y="465" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="PAW-9g-Zly"/>
+                                    <constraint firstAttribute="width" constant="20" id="PPI-3E-g1I"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rJn-EF-wr7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -91,11 +98,14 @@
                             <constraint firstItem="bFe-hu-Evi" firstAttribute="trailing" secondItem="rJn-EF-wr7" secondAttribute="trailing" id="KWC-fb-EWK"/>
                             <constraint firstItem="rJn-EF-wr7" firstAttribute="bottom" secondItem="XDe-8v-ICb" secondAttribute="bottom" id="KWg-vB-mVV"/>
                             <constraint firstItem="rJn-EF-wr7" firstAttribute="trailing" secondItem="XDe-8v-ICb" secondAttribute="trailing" id="M4o-QI-OR9"/>
+                            <constraint firstItem="mp4-hO-QCj" firstAttribute="centerY" secondItem="rJn-EF-wr7" secondAttribute="centerY" id="MUr-t8-9E6"/>
                             <constraint firstItem="bFe-hu-Evi" firstAttribute="leading" secondItem="rJn-EF-wr7" secondAttribute="leading" id="aAY-38-w4N"/>
+                            <constraint firstItem="mp4-hO-QCj" firstAttribute="centerX" secondItem="rJn-EF-wr7" secondAttribute="centerX" id="b9k-rH-b4u"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ePr-ci-8oK"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="mp4-hO-QCj" id="HHS-3A-oZn"/>
                         <outlet property="searchBar" destination="bFe-hu-Evi" id="qcm-F1-ePN"/>
                         <outlet property="tableView" destination="XDe-8v-ICb" id="2OJ-D4-K5c"/>
                     </connections>

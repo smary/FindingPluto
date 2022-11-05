@@ -30,6 +30,17 @@ struct Animal : Decodable {
         case distance
         case imageURL = "primary_photo_cropped"
     }
+    
+    init() {
+        self.name = ""
+        self.gender = ""
+        self.status = ""
+        self.size = ""
+        self.distance = 0
+        self.imageURL = PrimaryPhoto(small: URL(string: ""))
+        self.breeds = Breed()
+        
+    }
 }
 
 struct PrimaryPhoto: Decodable {
@@ -41,4 +52,11 @@ struct Breed: Decodable {
     let secondary: String?
     let mixed: Bool
     let unknown: Bool
+    
+    init() {
+        self.primary = ""
+        self.secondary = ""
+        self.mixed = false
+        self.unknown = true
+    }
 }

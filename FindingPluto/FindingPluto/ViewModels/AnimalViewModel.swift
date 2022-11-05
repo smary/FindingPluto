@@ -16,11 +16,30 @@ struct AnimalViewModel {
         return animal.name ?? ""
     }
     var breed: String {
-        let breedsString = animal.breeds.unknown ? "unknown" : [animal.breeds.primary ?? "", animal.breeds.secondary ?? "", ].joined(separator: ",")
+        let breedsString = animal.breeds.unknown ? "unknown" : [animal.breeds.primary ?? "", animal.breeds.secondary ?? "", ].joined(separator: " ")
         return breedsString
     }
-    var thumbnailURL: URL? {
-        return animal.imageURL?.small
+    var thumbnailURLString: String {
+        if let urlString = animal.imageURL?.small?.absoluteString {
+            return urlString
+        }
+        return ""
+    }
+    
+    var status: String {
+        return animal.status ?? ""
+    }
+    
+    var gender: String {
+        return animal.gender ?? ""
+    }
+    
+    var size: String {
+        return animal.size ?? ""
+    }
+    
+    var distance: Int {
+        return animal.distance ?? 0
     }
     
     init (animal: Animal) {

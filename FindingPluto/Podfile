@@ -9,6 +9,7 @@ target 'FindingPluto' do
 
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'RxDataSources'
   pod 'RxKingfisher', '~> 2.1'
 
   target 'FindingPlutoTests' do

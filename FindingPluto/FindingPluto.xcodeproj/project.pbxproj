@@ -116,6 +116,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C1784052918420E00C14E10 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6CAC46B52911447200BCF001 /* Controllers */,
+				6CAC46BC29115AB200BCF001 /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6C2672272916DC0D00D0254F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,8 +157,7 @@
 		6CAC467E2911299600BCF001 /* FindingPluto */ = {
 			isa = PBXGroup;
 			children = (
-				6CAC46B52911447200BCF001 /* Controllers */,
-				6CAC46BC29115AB200BCF001 /* Cells */,
+				6C1784052918420E00C14E10 /* View */,
 				6CAC46B9291155EE00BCF001 /* ViewModels */,
 				6CAC46B82911488100BCF001 /* Models */,
 				6CAC46BD29115ADF00BCF001 /* NetworkService */,

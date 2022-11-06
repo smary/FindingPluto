@@ -12,7 +12,7 @@ protocol AccessTokenManagerProtocol {
     
     func isAccessTokenValid() -> Bool
     func fetchAccessToken() -> String
-    func refreshWith(accessToken: AccessToken) throws
+    func refreshWith(accessToken: AccessToken)
 }
 
 class AccessTokenManager {
@@ -59,7 +59,7 @@ extension AccessTokenManager: AccessTokenManagerProtocol {
         return token
     }
     
-    func refreshWith(accessToken: AccessToken) throws {
+    func refreshWith(accessToken: AccessToken) {
         let expiresAt = accessToken.expiresAt
         let token = accessToken.token
         
@@ -69,3 +69,4 @@ extension AccessTokenManager: AccessTokenManagerProtocol {
     }
     
 }
+

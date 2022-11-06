@@ -15,19 +15,7 @@ protocol RequestsManagerProtocol {
 
 }
 
-
 class RequestsManager: RequestsManagerProtocol {
-
-    let accessTokenManager: AccessTokenManagerProtocol
-    
-    init(accessTokenManager: AccessTokenManagerProtocol = AccessTokenManager(userDefaults: .standard) ) {
-        self.accessTokenManager = accessTokenManager
-    }
-    
-    func isAccessTokenValid() -> Bool {
-        return accessTokenManager.isAccessTokenValid()
-    }
-    
     
     func fetchData<T: Decodable>(request: RequestProtocol, token: String) -> Observable<T> {
       return Observable<T>.create { observer -> Disposable in
@@ -37,14 +25,13 @@ class RequestsManager: RequestsManagerProtocol {
               return Disposables.create()
           }
           
-          
           let task = URLSession.shared.dataTask(with: urlRequest ) { (data, response, error) in
               guard let response = response as? HTTPURLResponse else {
-                  print("Error: Invalid response to token request!")
+                  observer.onError(NetworkError.invalidRequest)
                   return
               }
               guard error == nil else {
-                  print(error!.localizedDescription)
+                  observer.onError(NetworkError.invalidRequest)
                   return
               }
               if response.statusCode == 401 {

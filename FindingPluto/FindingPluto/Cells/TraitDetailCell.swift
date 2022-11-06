@@ -23,7 +23,9 @@ class TraitDetailCell: UITableViewCell {
     
     private func setupViews() {
         self.selectionStyle = .none
-        self.detailTextLabel?.font = UIFont(name: "Helvetica", size: 14)
+        self.textLabel?.font = UIFont(name: "Helvetica", size: 14)
+        self.textLabel?.textColor = .gray
+        self.detailTextLabel?.font = UIFont(name: "Helvetica", size: 16)
         
     }
     

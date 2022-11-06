@@ -13,23 +13,25 @@ import RxKingfisher
 
 class ListViewController: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    private var viewModel: AnimalsListViewModel!
+    private var viewModel: AnimalsListViewModel = AnimalsListViewModel.init()
     let bag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator.startAnimating()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        viewModel = AnimalsListViewModel.init()
+        bindViewModel()
+        setupCellSelection()
+    }
+    
+    func bindViewModel() {
         navigationItem.title = viewModel.title
-        
-        
+        activityIndicator.startAnimating()
+
         let animalViewModels = viewModel.fetchAnimalViewModels().share()
         animalViewModels
             .catchAndReturn([])
@@ -52,10 +54,11 @@ class ListViewController: UIViewController {
                     self?.activityIndicator.stopAnimating()
                 }
                 print("")
-
             })
             .disposed(by: bag)
-        
+    }
+    
+    func setupCellSelection() {
         tableView.rx.modelSelected(AnimalViewModel.self)
             .subscribe(onNext: { [weak self] itemViewModel in
                 if let detailViewController = self?.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController {

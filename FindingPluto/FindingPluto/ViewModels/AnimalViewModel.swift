@@ -20,7 +20,7 @@ struct AnimalViewModel {
         return breedsString
     }
     var thumbnailURLString: String {
-        if let urlString = animal.imageURL?.small?.absoluteString {
+        if let urlString = animal.imageURL?.small {
             return urlString
         }
         return ""

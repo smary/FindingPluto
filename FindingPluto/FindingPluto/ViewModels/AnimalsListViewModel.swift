@@ -7,24 +7,27 @@
 
 import Foundation
 import RxSwift
-
+import RxRelay
 
 final class AnimalsListViewModel {
     
     let title = "Pets List"
     
-    private let animalsService: AnimalsServiceProtocol
+    private let clientService: PetFinderService
+    private var animalViewModels: Observable<[AnimalViewModel]>
     
-    init (animalsService: AnimalsServiceProtocol = PetFinderService(requestsManager: RequestsManager())) {
-        self.animalsService = animalsService
+    init (clientService: PetFinderService = PetFinderService(requestsManager: RequestsManager(),
+                                                             tokenManager: AccessTokenManager(userDefaults: .standard))) {
+        self.clientService = clientService
+        self.animalViewModels = Observable.empty()
     }
     
     func fetchAnimalViewModels() -> Observable<[AnimalViewModel]> {
-        animalsService.fetchAnimals()
+        clientService.fetchAnimals()
             .map { animalsList in
                 animalsList.map { animal in
                     AnimalViewModel(animal: animal)
-                }                
+                }
             }
     }
 }

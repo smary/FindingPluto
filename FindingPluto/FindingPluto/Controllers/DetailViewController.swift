@@ -23,26 +23,19 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
     
         configureUI()
-        bindToModels()
+        bindViewModel()
     }
     
     private func configureUI() {
-        self.title = viewModel.title
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-
         tableView.register(TraitDetailCell.self, forCellReuseIdentifier: TraitDetailCell.identifier)
         tableView.register(PhotoDetailCell.self, forCellReuseIdentifier: PhotoDetailCell.identifier)
-        tableView.bounces = false
     }
     
-    private func bindToModels() {
+    private func bindViewModel() {
+        self.title = viewModel.title
         let dataSource = DetailViewController.dataSource()
         viewModel.sectionModels
             .drive(tableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
-        
-        tableView
-            .rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
 }
